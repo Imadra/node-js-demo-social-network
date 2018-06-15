@@ -1,0 +1,46 @@
+@font-face {
+  font-family: Sansation_B;
+  src: url(fonts/7fonts_ru_Sansation_Bold.eot);
+  src: url(fonts/7fonts_ru_Sansation_Bold.eot) format('embedded-opentype'), url(fonts/7fonts_ru_Sansation_Bold.woff2) format('woff2'), url(fonts/7fonts_ru_Sansation_Bold.woff) format('woff'), url(fonts/7fonts_ru_Sansation_Bold.ttf) format('truetype'), url(fonts/7fonts_ru_Sansation_Bold.svg#7fonts_ru_Sansation_Bold) format('svg');
+}
+body {
+  background-color: white;
+}
+.thumbnail img {
+  max-height: 150px;
+}
+.thumbnail .description {
+  color: #7f7f7f;
+}
+.price {
+  font-weight: bold;
+  font-size: 16px;
+}
+.navbar-brand {
+  font-family: 'Sansation_B';
+}
+.hello {
+  margin-top: 150px;
+}
+.hello h1 {
+  font-family: 'Sansation_B';
+  color: black;
+  /*#85aff2*/
+}
+#chat {
+  height: 500px;
+}
+#contentWrap {
+  display: none;
+}
+#chatWrap {
+  float: left;
+  border: 1px #000 solid;
+}
+.error {
+  color: red;
+}
+.whisper {
+  color: grey;
+  font-style: italic;
+}
