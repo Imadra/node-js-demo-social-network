@@ -1,0 +1,18 @@
+<div class="container">
+	<div class="row posts">
+		<h2>My Posts</h2>
+	</div>
+	{{#each Post}}
+		<div class="post">
+			<h3>{{this.title}}</h3>
+			<p>{{this.body}}</p>
+		</div>
+	{{/each}}
+
+	<hr>
+
+	<!--<form action="/post/create" method="post">
+        <input type="hidden" id="email" name="email" class="form-control" value="{{user.email}}">
+        <button type="submit" class="btn btn-default">Create new post</button>
+    </form>-->
+</div>

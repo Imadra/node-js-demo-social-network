@@ -4,6 +4,8 @@ var express = require('express'),
 mongoose.connect('mongodb://localhost:27017/chat');
 var User = require('../models/user');
 var router = express.Router();
+var Post = require('../models/post');
+
 //var Cart = require('../models/cart');
 
 //var Product = require('../models/product');
@@ -23,90 +25,18 @@ router.get('/', function (req, res, next) {
     res.render('main/mainpage');
 });
 router.post('/chat', function(req, res, next) {
-    var users = {}, io = require('../bin/www');
-
-    var gr = ['A', 'B', 'C'];
-
-    res.render('chat/index');
-
-    var Chat = require('../models/Message.js');
-
-    io.sockets.on('connection', function(socket) {
-        console.log('Connected ' + req.body.email);
-        /*var query = Chat.find({});
-        query.sort('-created').limit(8).exec(function(err, docs) {
-            if(err)
-                throw err;
-            socket.emit('load old msgs', docs);
-        });*/
-
-        socket.on('new user', function(callback) {
-            User.findOne({'email':req.body.email}, function(err, user) {
-                if(err){
-                    callback(false);
-                }
-                if(!user) {
-                    callback(false);
-                }
-                callback(true);
-                socket.name = user.name;
-                users[socket.name] = socket;
-                updateNicknames();
-                socket.emit('starting message', {msg:'Hello ', nick: socket.name});
-            });
-        })
-
-        socket.on('request grouplist', function(callback) {
-            k = ['List of groups:'];
-            for(var i=0;i<gr.length;i++) {
-                k.push(gr[i]);
-            }
-            callback(null, k);
-        });
-
-        function updateNicknames() {
-            io.sockets.emit('usernames', Object.keys(users));
-        }
-
-        socket.on('send message', function(data, callback) {
-            var msg = data.trim();
-            if(msg.substring(0, 3) === '/w ') {
-                msg = msg.substr(3);
-                var ind = msg.indexOf(' ');
-                if(ind !== -1) {
-                    var name = msg.substring(0, ind);
-                    var msg = msg.substring(ind + 1);
-                    if(name in users)
-                    {
-                        users[name].emit('whisper', {msg:msg, nick: socket.name});
-                        console.log('Whisper!');
-                    }
-                    else {
-                        callback('Error! Enter a valid user!');
-                    }
-                }
-                else {
-                    callback('Error. Please enter a message for your whisper!')
-                }
-            }
-            else {
-                var newMsg = new Chat({msg: msg, nick: socket.name});
-                newMsg.save(function(err) {
-                    if(err)
-                        throw(err);
-                    io.sockets.emit('new message', {msg:msg, nick: socket.name});
-                })
-            }
-        });
-
-        socket.on('disconnect', function(data) {
-            if(!socket.name)
-                return;
-            delete users[socket.name];
-            updateNicknames();
-        });
-    });
+    var chat = require('../bin/www').chat;
+    chat(req, res, next);
 })
+router.post('/post', function(req, res, next) {
+    res.render('post/posts')//, {Post.find(req.body.email)})
+})
+/*router.post('/post/create', function(req, res, next) {
+    res.render('post/create');
+})
+router.post('post/create/new', function(req, res, next) {
+    res.render
+})*/
 /*router.get('/add-to-cart/:id', function(req, res, next) {
 	var productId = req.params.id;
 	var cart = new Cart(req.session.cart ? req.session.cart : {});
